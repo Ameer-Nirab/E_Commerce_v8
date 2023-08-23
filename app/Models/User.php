@@ -42,4 +42,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function reviews() {
+        return $this->hasMany(reviews::class , 'user_id');
+    }
+
+    function carts() {
+        return $this->hasMany(cart::class , 'user_id');
+    }
+
+    function orders() {
+        return $this->hasMany(orders::class , 'user_id');
+    }
+
+    function order_items() {
+        return $this->hasMany(OrderItems::class , 'user_id');
+    }
+
+    function payments() {
+        return $this->hasMany(payments::class , 'user_id');
+    }
 }
