@@ -10,12 +10,12 @@ class payments extends Model
     use HasFactory;
 
     function user() {
-        return $this->belongsTo(user::class , 'user_id')
+        return $this->belongsTo(user::class)
                     ->withDefault();
     }
 
     function orders() {
-        return $this->belongsTo(orders::class , 'order_id')
+        return $this->belongsTo(orders::class)
                     ->withDefault();
     }
 }

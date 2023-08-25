@@ -10,19 +10,19 @@ class product extends Model
     use HasFactory;
 
     function category() {
-        return $this->belongsTo(category::class , 'category_id')
+        return $this->belongsTo(category::class)
                     ->withDefault();
     }
 
     function reviews() {
-        return $this->hasMany(reviews::class , 'product_id');
+        return $this->hasMany(reviews::class);
     }
 
     function carts() {
-        return $this->hasMany(cart::class , 'product_id');
+        return $this->hasMany(cart::class);
     }
 
     function order_items() {
-        return $this->hasMany(OrderItems::class , 'order_id');
+        return $this->hasMany(OrderItems::class);
     }
 }

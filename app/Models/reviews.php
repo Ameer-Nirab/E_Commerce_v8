@@ -10,12 +10,12 @@ class reviews extends Model
     use HasFactory;
 
     function product() {
-        return $this->belongsTo(product::class , 'product_id')
+        return $this->belongsTo(product::class)
                     ->withDefault();
     }
 
     function user() {
-        return $this->belongsTo(user::class , 'user_id')
+        return $this->belongsTo(user::class)
                     ->withDefault();
     }
 }

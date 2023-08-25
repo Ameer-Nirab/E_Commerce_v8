@@ -44,22 +44,22 @@ class User extends Authenticatable
     ];
 
     function reviews() {
-        return $this->hasMany(reviews::class , 'user_id');
+        return $this->hasMany(reviews::class);
     }
 
     function carts() {
-        return $this->hasMany(cart::class , 'user_id');
+        return $this->hasMany(cart::class);
     }
 
     function orders() {
-        return $this->hasMany(orders::class , 'user_id');
+        return $this->hasMany(orders::class);
     }
 
     function order_items() {
-        return $this->hasMany(OrderItems::class , 'user_id');
+        return $this->hasMany(OrderItems::class);
     }
 
     function payments() {
-        return $this->hasMany(payments::class , 'user_id');
+        return $this->hasMany(payments::class);
     }
 }
