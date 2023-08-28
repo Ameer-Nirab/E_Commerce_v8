@@ -69,7 +69,7 @@
 
                             <p>the page you are looking for not avaible!</p>
 
-                            <a href="{{ url('register') }}" class="link_404">Go to Register</a>
+                            <a href="{{ url('login') }}" class="link_404">Go to Login</a>
                         </div>
                     </div>
                 </div>
