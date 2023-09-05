@@ -10,7 +10,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ __('site.dashboard') }}</span></a>
@@ -24,14 +24,13 @@
             <i class="fas fa-fw fa-tags"></i>
             <span>{{ __('site.categories') }}</span>
         </a>
-        {{-- http://127.0.0.1:8000/admin/categories
-        http://127.0.0.1:8000/admin/categories/create
-        http://127.0.0.1:8000/admin/categories/1/edit --}}
-        {{-- {{ str_contains(request()->url(), 'categories') }} --}}
-        <div id="collapseCategory" class="collapse {{ str_contains(request()->url(), 'categories') ? 'show' : '' }} " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseCategory" class="collapse {{ str_contains(request()->url(), 'categories') ? 'show' : '' }} "
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">All categories</a>
-                <a class="collapse-item {{ request()->routeIs('admin.categories.create') ? 'active' : '' }}" href="{{ route('admin.categories.create') }}">Add New</a>
+                <a class="collapse-item {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}"
+                    href="{{ route('admin.categories.index') }}">All categories</a>
+                <a class="collapse-item {{ request()->routeIs('admin.categories.create') ? 'active' : '' }}"
+                    href="{{ route('admin.categories.create') }}">Add New</a>
             </div>
         </div>
     </li>
@@ -43,10 +42,13 @@
             <i class="fas fa-fw fa-heart"></i>
             <span>{{ __('site.products') }}</span>
         </a>
-        <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">All Products</a>
-                <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}">Add New</a>
+                <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}"
+                    href="{{ route('admin.products.index') }}">All Products</a>
+                <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}"
+                    href="{{ route('admin.products.create') }}">Add New</a>
             </div>
         </div>
     </li>
@@ -64,13 +66,15 @@
             <i class="fas fa-fw fa-money-bill"></i>
             <span>{{ __('site.payments') }}</span></a>
     </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    <li class="nav-item">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.users.index') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>{{ __('site.users') }}</span></a>
+            <span>{{ __('site.user') }}</span></a>
     </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Sidebar Toggler (Sidebar) -->
