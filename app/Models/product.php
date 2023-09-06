@@ -13,7 +13,7 @@ class product extends Model
     protected $guarded = [];
 
     function category() {
-        return $this->belongsTo(category::class)
+        return $this->belongsTo(category::class , 'category_id')
                     ->withDefault();
     }
 
