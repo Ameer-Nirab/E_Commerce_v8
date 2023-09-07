@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\reviews;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller{
 
@@ -38,5 +40,26 @@ class SiteController extends Controller{
     public function search(Request $request){
         $products = Product::orderByDesc('id')->where('name', 'like', '%'.$request->q.'%')->paginate(5);
         return view('site.search', compact('products'));
+    }
+
+    function product($slug) {
+        $product = Product::where('slug', $slug)->first();
+        if (!$product) {
+            abort(404);
+        }
+        $next = product::where('id' , '>' , $product->id)->first();
+        $prev = product::where('id' , '<' , $product->id)->orderByDesc('id')->first();
+        $related = product::where('category_id' , $product->category_id)->where('id' , '!=' , $product->id)->get();
+        return view('site.product' , compact('product' , 'next' , 'prev' , 'related'));
+    }
+
+    function product_review(Request $request) {
+        reviews::create([
+            'comment' => $request->comment,
+            'star' => $request->rating,
+            'product_id' => $request->product_id,
+            'user_id' => Auth::id()
+        ]);
+        return redirect()->back();
     }
 }

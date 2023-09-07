@@ -9,6 +9,8 @@ class cart extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     function product() {
         return $this->belongsTo(product::class)
                     ->withDefault();

@@ -1,19 +1,15 @@
 @php
     use App\Models\Category;
 @endphp
-
 <!DOCTYPE html>
 <html lang="en">
-
 <!-- Mirrored from demo.themefisher.com/aviato/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Aug 2022 11:27:24 GMT -->
 
 <head>
-
     <!-- Basic Page Needs
   ================================================== -->
     <meta charset="utf-8">
     <title>@yield('title', config('app.name'))</title>
-
     <!-- Mobile Specific Metas
   ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,15 +17,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="author" content="Themefisher">
     <meta name="generator" content="Themefisher Constra HTML Template v1.0">
-
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
-
     <!-- Themefisher Icon font -->
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/themefisher-font/style.css') }}">
     <!-- bootstrap.min css -->
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/bootstrap/css/bootstrap.min.css') }}">
-
     <!-- Animate css -->
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/animate/animate.css') }}">
     <!-- Slick Carousel -->
@@ -38,11 +31,10 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{{ asset('siteassets/css/style.css') }}">
-
+    @yield('styles')
 </head>
 
 <body id="body">
-
     <!-- Start Top Header Bar -->
     <section class="top-header">
         <div class="container">
@@ -53,7 +45,6 @@
                             <i class="tf-ion-ios-telephone"></i>
                             <span>0129- 12323-123123</span>
                         </a>
-
                         {{-- <a href="mailto:malqumbuz@gmail.com">malqumbuz@gmail.com</a> --}}
                     </div>
                 </div>
@@ -83,70 +74,57 @@
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                     class="tf-ion-android-cart"></i>Cart</a>
                             <div class="dropdown-menu cart-dropdown">
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object"
-                                            src="{{ asset('siteassets/images/shop/cart/cart-1.jpg') }}"
-                                            alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach (auth()->user()->carts as $cart)
+                                    <!-- Cart Item -->
+                                    <div class="media">
+                                        <a class="pull-left" href="{{ route('site.product', $cart->product->slug) }}">
+                                            <img class="media-object"
+                                                src="{{ asset('uploads/products/' . $cart->product->image) }}"
+                                                alt="image" />
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a
+                                                    href="{{ route('site.product', $cart->product->slug) }}">{{ $cart->product->trans_name }}</a>
+                                            </h4>
+                                            <div class="cart-price">
+                                                <span>{{ $cart->quantity }} x</span>
+                                                <span>{{ $cart->price }}</span>
+                                            </div>
+                                            <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
                                         </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object"
-                                            src="{{ asset('siteassets/images/shop/cart/cart-2.jpg') }}"
-                                            alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
-                                        </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
+                                        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+                                    </div><!-- / Cart Item -->
+                                    @php
+                                        $total += $cart->quantity * $cart->price;
+                                    @endphp
+                                @endforeach
+
 
                                 <div class="cart-summary">
                                     <span>Total</span>
-                                    <span class="total-price">$1799.00</span>
+                                    <span class="total-price">${{ number_format($total, 2) }}</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
                                     <li><a href="cart.html" class="btn btn-small">View Cart</a></li>
                                     <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
                                 </ul>
                             </div>
-
                         </li><!-- / Cart -->
-
                         <!-- Search -->
                         <li class="dropdown search dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown"
-                                data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                                    class="tf-ion-ios-search-strong"></i> Search</a>
                             <ul class="dropdown-menu search-dropdown">
                                 <li>
-                                    <form action="{{ route('site.search') }}" method="GET">
-                                        <input type="search"
-                                                name="q"
-                                                class="form-control"
-                                                placeholder="Search..."
-                                                value="{{ request()->q }}">
-                                    </form>
+                                    <form action="{{ route('site.search') }}" method="GET"><input type="search"
+                                            name="q" class="form-control" placeholder="Search..."
+                                            value="{{ request()->q }}"></form>
                                 </li>
                             </ul>
                         </li><!-- / Search -->
-
                         <!-- Languages -->
                         <li class="commonSelect">
                             <select class="form-control" onchange="window.location.href=this.value">
@@ -157,14 +135,11 @@
                                 @endforeach
                             </select>
                         </li><!-- / Languages -->
-
                     </ul><!-- / .nav .navbar-nav .navbar-right -->
                 </div>
             </div>
         </div>
     </section><!-- End Top Header Bar -->
-
-
     <!-- Main Menu Section -->
     <section class="menu">
         <nav class="navbar navigation">
@@ -178,28 +153,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
                 </div><!-- / .navbar-header -->
-
                 <!-- Navbar Links -->
                 <div id="navbar" class="navbar-collapse collapse text-center">
                     <ul class="nav navbar-nav">
-
                         <!-- Home -->
                         <li class="dropdown ">
                             <a href="{{ route('site.index') }}">Home</a>
                         </li><!-- / Home -->
-
                         <!-- Home -->
                         <li class="dropdown ">
                             <a href="{{ route('site.about') }}">About</a>
                         </li><!-- / Home -->
-
                         <!-- Home -->
                         <li class="dropdown ">
                             <a href="{{ route('site.shop') }}">Shop</a>
                         </li><!-- / Home -->
-
                         <!-- Blog -->
                         <li class="dropdown dropdown-slide">
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
@@ -207,29 +176,22 @@
                                 aria-expanded="false">Categories <span class="tf-ion-ios-arrow-down"></span></a>
                             <ul class="dropdown-menu">
                                 @foreach (Category::all() as $item)
-                                    <li><a href="{{ route('site.category' , $item->id) }}">{{ $item->trans_name }}</a></li>
+                                    <li><a href="{{ route('site.category', $item->id) }}">{{ $item->trans_name }}</a>
+                                    </li>
                                 @endforeach
-
                             </ul>
                         </li><!-- / Blog -->
-
                         <!-- Home -->
                         <li class="dropdown ">
                             <a href="{{ route('site.contact') }}">Contact</a>
                         </li><!-- / Home -->
-
-
-
                     </ul><!-- / .nav .navbar-nav -->
-
                 </div>
                 <!--/.navbar-collapse -->
             </div><!-- / .container -->
         </nav>
     </section>
-
     @yield('content')
-
     <footer class="footer section text-center">
         <div class="container">
             <div class="row">
@@ -276,11 +238,9 @@
             </div>
         </div>
     </footer>
-
     <!--
     Essential Scripts
     =====================================-->
-
     <!-- Main jQuery -->
     <script src="{{ asset('siteassets/plugins/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap 3.1 -->
@@ -293,24 +253,17 @@
     <script src="{{ asset('siteassets/plugins/ekko-lightbox/dist/ekko-lightbox.min.js') }}"></script>
     <!-- Count Down Js -->
     <script src="{{ asset('siteassets/plugins/syo-timer/build/jquery.syotimer.min.js') }}"></script>
-
     <!-- slick Carousel -->
     <script src="{{ asset('siteassets/plugins/slick/slick.min.js') }}"></script>
     <script src="{{ asset('siteassets/plugins/slick/slick-animation.min.js') }}"></script>
-
     <!-- Google Mapl -->
     <script
         src="{{ asset('siteassets/https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw') }}">
     </script>
     <script type="text/javascript" src="{{ asset('siteassets/plugins/google-map/gmap.js') }}"></script>
-
     <!-- Main Js File -->
     <script src="{{ asset('siteassets/js/script.js') }}"></script>
-
-
-
 </body>
-
 <!-- Mirrored from demo.themefisher.com/aviato/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Aug 2022 11:27:48 GMT -->
 
 </html>

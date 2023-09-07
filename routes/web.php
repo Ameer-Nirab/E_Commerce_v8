@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SiteController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -37,7 +38,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/about', [SiteController::class, 'about'])->name('site.about');
     Route::get('/shop', [SiteController::class, 'shop'])->name('site.shop');
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
-    Route::get('/category/{id}', [SiteController::class, 'category'])->name('site.category');
-    Route::get('/product/{id}', [SiteController::class, 'product'])->name('site.product');
     Route::get('/search', [SiteController::class, 'search'])->name('site.search');
+    Route::get('/category/{id}', [SiteController::class, 'category'])->name('site.category');
+    Route::get('/product/{slug}', [SiteController::class, 'product'])->name('site.product');
+    Route::post('/product/{slug}/review', [SiteController::class, 'product_review'])->name('site.product_review');
 });
+Route::post('/add-to-cart', [CartController::class, 'add_to_cart'])->name('site.add_to_cart');
