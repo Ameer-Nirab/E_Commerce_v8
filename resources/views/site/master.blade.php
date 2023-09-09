@@ -28,7 +28,6 @@
     <!-- Slick Carousel -->
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/slick/slick-theme.css') }}">
-
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{{ asset('siteassets/css/style.css') }}">
     @yield('styles')
@@ -77,10 +76,13 @@
                                 @php
                                     $total = 0;
                                 @endphp
+                                {{-- @if (Auth::check()) --}}
                                 @auth
-                                    @foreach (Auth()->user()->carts as $cart)                                    <!-- Cart Item -->
+                                    @foreach (auth()->user()->carts as $cart)
+                                        <!-- Cart Item -->
                                         <div class="media">
-                                            <a class="pull-left" href="{{ route('site.product', $cart->product->slug) }}">
+                                            <a class="pull-left" href="{{ route('site.product', $cart->product->slug ) }}">
+                                                {{-- $cart->product->slug --}}
                                                 <img class="media-object"
                                                     src="{{ asset('uploads/products/' . $cart->product->image) }}"
                                                     alt="image" />
@@ -95,7 +97,8 @@
                                                 </div>
                                                 <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
                                             </div>
-                                            <a href="{{ route('site.remove_cart', $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
+                                            <a href="{{ route('site.remove_cart', $cart->id) }}" class="remove"><i
+                                                    class="tf-ion-close"></i></a>
                                         </div><!-- / Cart Item -->
                                         @php
                                             $total += $cart->quantity * $cart->price;
@@ -104,15 +107,18 @@
                                 @endauth
 
 
+
                                 <div class="cart-summary">
                                     <span>Total</span>
                                     <span class="total-price">${{ number_format($total, 2) }}</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
                                     <li><a href="{{ route('site.cart') }}" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="{{ route('site.checkout') }}" class="btn btn-small btn-solid-border">Checkout</a></li>
+                                    <li><a href="{{ route('site.checkout') }}"
+                                            class="btn btn-small btn-solid-border">Checkout</a></li>
                                 </ul>
                             </div>
+
                         </li><!-- / Cart -->
                         <!-- Search -->
                         <li class="dropdown search dropdown-slide">
@@ -264,6 +270,9 @@
     <script type="text/javascript" src="{{ asset('siteassets/plugins/google-map/gmap.js') }}"></script>
     <!-- Main Js File -->
     <script src="{{ asset('siteassets/js/script.js') }}"></script>
+
+    @yield('scripts')
+
 </body>
 <!-- Mirrored from demo.themefisher.com/aviato/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Aug 2022 11:27:48 GMT -->
 

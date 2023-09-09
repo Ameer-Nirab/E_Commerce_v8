@@ -50,6 +50,8 @@ class SiteController extends Controller{
         $next = product::where('id' , '>' , $product->id)->first();
         $prev = product::where('id' , '<' , $product->id)->orderByDesc('id')->first();
         $related = product::where('category_id' , $product->category_id)->where('id' , '!=' , $product->id)->get();
+        // return view('site.product' , compact('product' , 'next' , 'prev' , 'related'));
+        // dd($slug);
         return view('site.product' , compact('product' , 'next' , 'prev' , 'related'));
     }
 

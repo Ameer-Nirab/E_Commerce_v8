@@ -20,3 +20,11 @@
         </div>
     </div>
 @stop
+
+@section('scripts')
+    <script>// داله يتم تنفيدها بعد انقضاء المدة المحددة بعد 3 ثواني
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 3000);
+    </script>
+@endsection
